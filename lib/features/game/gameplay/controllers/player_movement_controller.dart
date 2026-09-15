@@ -1,6 +1,7 @@
 import 'package:flame/components.dart';
 
 import '../components/components.dart';
+import '../config/config.dart';
 
 class PlayerMovementController {
   PlayerMovementController({
@@ -9,24 +10,31 @@ class PlayerMovementController {
   })  : _player = player,
         _worldSize = worldSize;
 
-  static const double _moveStep = 24;
-  static const double _worldMargin = 28;
-
   final MageComponent _player;
   final Vector2 Function() _worldSize;
 
-  void moveUp() => move(Vector2(0, -_moveStep));
-  void moveDown() => move(Vector2(0, _moveStep));
-  void moveLeft() => move(Vector2(-_moveStep, 0));
-  void moveRight() => move(Vector2(_moveStep, 0));
+  void moveUp() => move(Vector2(0, -GameTuning.playerMoveStep));
+  void moveDown() => move(Vector2(0, GameTuning.playerMoveStep));
+  void moveLeft() => move(Vector2(-GameTuning.playerMoveStep, 0));
+  void moveRight() => move(Vector2(GameTuning.playerMoveStep, 0));
 
   void move(Vector2 delta) {
     final next = _player.position + delta;
     final size = _worldSize();
 
     _player.position = Vector2(
-      next.x.clamp(_worldMargin, size.x - _worldMargin).toDouble(),
-      next.y.clamp(_worldMargin, size.y - _worldMargin).toDouble(),
+      next.x
+          .clamp(
+            GameTuning.playerWorldMargin,
+            size.x - GameTuning.playerWorldMargin,
+          )
+          .toDouble(),
+      next.y
+          .clamp(
+            GameTuning.playerWorldMargin,
+            size.y - GameTuning.playerWorldMargin,
+          )
+          .toDouble(),
     );
   }
 }
