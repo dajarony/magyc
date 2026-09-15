@@ -60,6 +60,16 @@ controllers  -> config + components
 
 Evitar dependencias inversas: gameplay no conoce widgets, screens ni Material navigation.
 
+## ECA / bus de eventos
+
+No se introduce ECA, event bus ni otra capa de coordinacion en este vertical slice. Para el alcance actual seria sobrearquitectura y anadiria acoplamiento indirecto sin resolver un problema real.
+
+Solo se reconsidera si aparecen varios subsistemas independientes que necesiten reaccionar al mismo evento sin conocerse entre si (por ejemplo combate + audio + progreso + logros). Hasta entonces, llamadas directas y contratos claros.
+
+## Verificacion automatica
+
+GitHub Actions ejecuta `flutter pub get`, formato, `flutter analyze --fatal-infos --fatal-warnings` y `flutter test` en cada push de `main`/`feat/**` y en cada PR hacia `main`.
+
 ## Siguiente evolucion segun Dajarony
 
 No inventar arquitectura adicional. Cuando las fases del Playbook lo indiquen se incorporan:
