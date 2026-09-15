@@ -38,13 +38,22 @@ Remediacion arquitectonica del prototipo inicial terminada en GitHub. El codigo 
 - `.gitignore` Flutter/Dart anadido.
 - CI de GitHub Actions anadido con pub get, format, analyze estricto y tests.
 - tests iniciales anadidos para theme, rutas, movimiento/clamp y invariantes de tuning.
+- formato y warning de import redundante detectados por CI y corregidos.
+
+## Validacion CI
+
+GitHub Actions esta VERDE en el commit actual del vertical slice:
+- `flutter pub get` — PASS
+- `dart format --output=none --set-exit-if-changed lib test` — PASS
+- `flutter analyze --fatal-infos --fatal-warnings` — PASS
+- `flutter test` — PASS
+
+Esto valida la base Dart/Flutter en Flutter 3.29.0. Aun falta la validacion de ejecucion real en Android/Windows porque esas plataformas todavia deben generarse en el equipo de desarrollo.
 
 ## Fases Dajarony
 
-Ninguna fase se marca como cerrada todavia hasta que los gates terminen verdes.
-
-- [ ] Fase 1 — Design System: codigo + tests preparados; CI ejecutandose.
-- [ ] Fase 2 — App shell: codigo + test de rutas preparados; cerrar despues de Fase 1.
+- [ ] Fase 1 — Design System: gates CI verdes; pendiente repetir validacion local segun el playbook antes de marcar cierre formal.
+- [ ] Fase 2 — App shell: gates CI verdes; pendiente validacion local/plataformas y cierre despues de Fase 1.
 - [ ] Fase 3 — DI + modulos Dajarony.
 - [ ] Fase 4 — SCP en codigo.
 - [ ] Fase 5 — Dominio.
@@ -55,21 +64,14 @@ Ninguna fase se marca como cerrada todavia hasta que los gates terminen verdes.
 
 El ViewModel/screen/gameplay existentes se consideran prototipo heredado en remediacion, no una declaracion de que las fases posteriores esten cerradas.
 
-## Gates automaticos
-
-`.github/workflows/ci.yml` ejecuta en GitHub:
-- `flutter pub get`
-- `dart format --output=none --set-exit-if-changed lib test`
-- `flutter analyze --fatal-infos --fatal-warnings`
-- `flutter test`
-
 ## Pendiente inmediato — NO saltar
 
-1. Esperar el resultado verde del CI actual y corregir cualquier fallo real.
-2. Cuando el dispositivo `Dajarony` vuelva online, generar plataformas Flutter que falten sin pisar `lib/`.
-3. Repetir localmente los mismos gates.
-4. Solo entonces cerrar Fase 1 y Fase 2 en orden.
+1. Cuando el dispositivo `Dajarony` vuelva online, generar plataformas Flutter que falten sin pisar `lib/`.
+2. Ejecutar localmente pub get, format, analyze y test.
+3. Lanzar la demo en Windows o Android y confirmar arranque/render/control real.
+4. Cerrar Fase 1 y Fase 2 en orden.
+5. Solo entonces avanzar al primer enemigo `slime`.
 
-## Proxima feature despues de los gates
+## Proxima feature despues de los gates locales
 
-Primer enemigo `slime`, pero solo cuando la arquitectura base este validada. Su implementacion se separara como dominio/componente/sistema de colision segun la fase correspondiente; no se metera dentro de `MagycGame`.
+Primer enemigo `slime`. Su implementacion se separara como dominio/componente/sistema de colision segun la fase correspondiente; no se metera dentro de `MagycGame`.
