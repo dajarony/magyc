@@ -1,32 +1,28 @@
-# 🧙 Magyc
+# Magyc
 
-Mini action-RPG isométrico construido con Flutter + Flame.
+Mini action-RPG isometrico construido con Flutter + Flame siguiendo el Playbook de Dajarony Core.
 
 ## Objetivo
 
-Crear un vertical slice pequeño, funcional y pulido:
+Validar un vertical slice pequeno de 5–10 minutos antes de ampliar alcance.
 
-- 1 escenario isométrico
-- 1 mago jugable
-- movimiento táctil/teclado
-- 2 hechizos
-- 2 tipos de enemigos
-- 1 cristal/objetivo
-- 1 puerta de salida
-- 1 mini jefe
-- pantalla de victoria
+## Arquitectura
 
-## Stack previsto
+- Flutter: app shell, rutas, HUD y controles.
+- Flame: mundo, componentes, movimiento, hechizos y colisiones.
+- Dajarony Core: lifecycle, DI, errores tipados y trazabilidad cuando corresponda por fase.
+- `sprite-gen`: pipeline previsto para convertir arte maestro en sprites/atlas listos para Flame.
 
-- Flutter
-- Flame
-- Dajarony Núcleo Flutter para arquitectura de app, módulos, errores y trazabilidad
-- sprite-gen para atlas/sprites y exportación orientada a Flame
+Regla principal: **una responsabilidad por archivo/unidad**. No se acepta codigo espagueti ni archivos monoliticos.
 
-## Principio del proyecto
+La configuracion numerica del gameplay vive centralizada en `lib/features/game/gameplay/config/game_tuning.dart`; los controllers y componentes no reparten valores de tuning por el codigo.
 
-Nada de hacer un RPG enorme. Primero una demo de 5–10 minutos que se pueda jugar de principio a fin.
+Lee antes de tocar codigo:
+- `AGENTS.md`
+- `STATUS.md`
+- `docs/ARCHITECTURE.md`
+- `docs/VERTICAL_SLICE.md`
 
 ## Estado
 
-Repositorio inicializado. El siguiente paso es levantar el vertical slice en una rama de trabajo y validar `flutter analyze` + `flutter test` antes de ampliar alcance.
+La rama `feat/vertical-slice` esta preparada arquitectonicamente para validacion. No se considera ninguna fase Dajarony cerrada hasta ejecutar `flutter analyze` y `flutter test` en el equipo de desarrollo.
