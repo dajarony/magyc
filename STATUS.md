@@ -17,6 +17,7 @@ Remediacion arquitectonica del prototipo inicial terminada en GitHub. El codigo 
 - `AGENTS.md` obliga SRP, barrels, separacion Flutter/Flame y orden Dajarony.
 - `analysis_options.yaml` activa reglas adicionales (`avoid_print`, `directives_ordering`, tipos de retorno explicitos, finales preferidos).
 - `docs/ARCHITECTURE.md` fija dependencias y responsabilidades por capa.
+- ECA/event bus queda expresamente fuera del vertical slice actual para evitar sobrearquitectura.
 
 ### Separado ahora
 - `main.dart`: solo bootstrap + `runApp`.
@@ -34,13 +35,16 @@ Remediacion arquitectonica del prototipo inicial terminada en GitHub. El codigo 
 - movimiento, margenes, spawn, dimensiones isometricas y parametros del hechizo ya no estan repartidos por controllers/componentes.
 - `GameTuning` es la unica responsabilidad para esos valores.
 - la geometria puramente visual permanece privada dentro de cada componente, donde pertenece.
+- `.gitignore` Flutter/Dart anadido.
+- CI de GitHub Actions anadido con pub get, format, analyze estricto y tests.
+- tests iniciales anadidos para theme, rutas, movimiento/clamp y invariantes de tuning.
 
 ## Fases Dajarony
 
-Ninguna fase se marca como cerrada todavia porque falta ejecutar los gates reales en el equipo de desarrollo.
+Ninguna fase se marca como cerrada todavia hasta que los gates terminen verdes.
 
-- [ ] Fase 1 — Design System: codigo preparado; falta `analyze` + `test`.
-- [ ] Fase 2 — App shell: codigo preparado; no se cierra hasta validar Fase 1 y despues Fase 2.
+- [ ] Fase 1 — Design System: codigo + tests preparados; CI ejecutandose.
+- [ ] Fase 2 — App shell: codigo + test de rutas preparados; cerrar despues de Fase 1.
 - [ ] Fase 3 — DI + modulos Dajarony.
 - [ ] Fase 4 — SCP en codigo.
 - [ ] Fase 5 — Dominio.
@@ -51,22 +55,20 @@ Ninguna fase se marca como cerrada todavia porque falta ejecutar los gates reale
 
 El ViewModel/screen/gameplay existentes se consideran prototipo heredado en remediacion, no una declaracion de que las fases posteriores esten cerradas.
 
+## Gates automaticos
+
+`.github/workflows/ci.yml` ejecuta en GitHub:
+- `flutter pub get`
+- `dart format --output=none --set-exit-if-changed lib test`
+- `flutter analyze --fatal-infos --fatal-warnings`
+- `flutter test`
+
 ## Pendiente inmediato — NO saltar
 
-1. Conectar el dispositivo remoto `Dajarony`.
-2. Confirmar checkout de `feat/vertical-slice`.
-3. Generar plataformas Flutter que falten sin pisar `lib/`.
-4. Ejecutar con ruta absoluta:
-   - `C:\flutter\bin\flutter.bat pub get`
-   - `C:\flutter\bin\dart.bat format lib test`
-   - `C:\flutter\bin\flutter.bat analyze`
-   - `C:\flutter\bin\flutter.bat test`
-5. Corregir hasta verde.
-6. Solo entonces cerrar Fase 1 y avanzar en orden.
-
-## Bloqueo actual
-
-El dispositivo remoto `Dajarony` sigue offline en la ultima comprobacion. El codigo queda preparado para validacion, pero no se afirma que compile ni que los tests pasen hasta ejecutar los comandos anteriores.
+1. Esperar el resultado verde del CI actual y corregir cualquier fallo real.
+2. Cuando el dispositivo `Dajarony` vuelva online, generar plataformas Flutter que falten sin pisar `lib/`.
+3. Repetir localmente los mismos gates.
+4. Solo entonces cerrar Fase 1 y Fase 2 en orden.
 
 ## Proxima feature despues de los gates
 
