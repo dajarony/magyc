@@ -2,13 +2,11 @@ import 'dart:ui';
 
 import 'package:flame/components.dart';
 
+import '../config/config.dart';
 import '../theme/theme.dart';
 
 class IsometricGroundComponent extends PositionComponent {
   IsometricGroundComponent({required super.size}) : super(priority: -10);
-
-  static const double _tileWidth = 72;
-  static const double _tileHeight = 36;
 
   final Paint _tilePrimaryPaint = Paint()..color = GamePalette.tilePrimary;
   final Paint _tileSecondaryPaint = Paint()..color = GamePalette.tileSecondary;
@@ -23,9 +21,11 @@ class IsometricGroundComponent extends PositionComponent {
     super.render(canvas);
     canvas.drawRect(size.toRect(), _backgroundPaint);
 
-    final columns = (size.x / (_tileWidth / 2)).ceil() + 3;
-    final rows = (size.y / _tileHeight).ceil() + 3;
-    final origin = Offset(size.x / 2, 52);
+    final columns =
+        (size.x / (GameTuning.tileWidth / 2)).ceil() + GameTuning.tileOverscan;
+    final rows =
+        (size.y / GameTuning.tileHeight).ceil() + GameTuning.tileOverscan;
+    final origin = Offset(size.x / 2, GameTuning.tileOriginY);
 
     for (var row = 0; row < rows; row++) {
       for (var column = -columns ~/ 2; column < columns ~/ 2; column++) {
@@ -40,14 +40,18 @@ class IsometricGroundComponent extends PositionComponent {
     required int column,
     required Offset origin,
   }) {
-    final centerX = origin.dx + (column * _tileWidth / 2) + (row * _tileWidth / 2);
-    final centerY = origin.dy + (row * _tileHeight / 2) - (column * _tileHeight / 2);
+    final centerX = origin.dx +
+        (column * GameTuning.tileWidth / 2) +
+        (row * GameTuning.tileWidth / 2);
+    final centerY = origin.dy +
+        (row * GameTuning.tileHeight / 2) -
+        (column * GameTuning.tileHeight / 2);
 
     final path = Path()
-      ..moveTo(centerX, centerY - _tileHeight / 2)
-      ..lineTo(centerX + _tileWidth / 2, centerY)
-      ..lineTo(centerX, centerY + _tileHeight / 2)
-      ..lineTo(centerX - _tileWidth / 2, centerY)
+      ..moveTo(centerX, centerY - GameTuning.tileHeight / 2)
+      ..lineTo(centerX + GameTuning.tileWidth / 2, centerY)
+      ..lineTo(centerX, centerY + GameTuning.tileHeight / 2)
+      ..lineTo(centerX - GameTuning.tileWidth / 2, centerY)
       ..close();
 
     canvas.drawPath(
