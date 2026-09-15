@@ -35,7 +35,8 @@ class SpellOrbComponent extends PositionComponent {
   @override
   void render(Canvas canvas) {
     super.render(canvas);
-    canvas.drawCircle(const Offset(12, 12), 11, _glowPaint);
-    canvas.drawCircle(const Offset(12, 12), 6, _corePaint);
+    final center = GameTuning.primarySpellExtent / 2;
+    canvas.drawCircle(Offset(center, center), 11, _glowPaint);
+    canvas.drawCircle(Offset(center, center), 6, _corePaint);
   }
 }
