@@ -7,9 +7,23 @@ class MagycGameViewModel extends ChangeNotifier {
 
   final MagycGame game;
 
-  void moveUp() => game.movement.moveUp();
-  void moveDown() => game.movement.moveDown();
-  void moveLeft() => game.movement.moveLeft();
-  void moveRight() => game.movement.moveRight();
-  void castPrimarySpell() => game.spells.castPrimarySpell();
+  void moveUp() {
+    if (game.isReady) game.movement.moveUp();
+  }
+
+  void moveDown() {
+    if (game.isReady) game.movement.moveDown();
+  }
+
+  void moveLeft() {
+    if (game.isReady) game.movement.moveLeft();
+  }
+
+  void moveRight() {
+    if (game.isReady) game.movement.moveRight();
+  }
+
+  void castPrimarySpell() {
+    if (game.isReady) game.spells.castPrimarySpell();
+  }
 }
