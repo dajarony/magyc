@@ -9,6 +9,8 @@ class MagycGame extends FlameGame {
   late final PlayerMovementController movement;
   late final SpellCastingController spells;
 
+  bool isReady = false;
+
   @override
   Future<void> onLoad() async {
     await super.onLoad();
@@ -28,5 +30,7 @@ class MagycGame extends FlameGame {
       world: this,
       player: player,
     );
+
+    isReady = true;
   }
 }
