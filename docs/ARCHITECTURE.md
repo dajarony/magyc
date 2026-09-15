@@ -13,8 +13,10 @@ main.dart
           -> game presentation
               -> ViewModel
                   -> Flame gameplay composition
+                      -> config
                       -> controllers
                       -> components
+                      -> theme
 ```
 
 ## Responsabilidades
@@ -34,11 +36,14 @@ Solo presenta el juego en Flutter. La screen dibuja estado y dispara acciones. E
 ### `lib/features/game/gameplay/magyc_game.dart`
 Es el composition root de Flame. Crea y conecta componentes/controladores. No contiene reglas de movimiento, dibujo del mago ni comportamiento de proyectiles.
 
+### `lib/features/game/gameplay/config/`
+Contiene unicamente parametros de ajuste del vertical slice: dimensiones isometricas, movimiento, spawn y comportamiento numerico de hechizos. Evita numeros de gameplay repartidos por componentes y controllers.
+
 ### `lib/features/game/gameplay/controllers/`
 Cada controller contiene una regla de interaccion concreta. `PlayerMovementController` mueve al jugador. `SpellCastingController` crea hechizos. No renderizan.
 
 ### `lib/features/game/gameplay/components/`
-Cada componente representa/renderiza una entidad o elemento del mundo y solo mantiene su comportamiento local.
+Cada componente representa/renderiza una entidad o elemento del mundo y solo mantiene su comportamiento local. La geometria puramente visual puede permanecer privada dentro de su componente.
 
 ### `lib/features/game/gameplay/theme/`
 Paleta visual del renderer Flame. Evita colores dispersos en componentes.
@@ -47,9 +52,10 @@ Paleta visual del renderer Flame. Evita colores dispersos en componentes.
 
 ```text
 presentation -> gameplay
+gameplay     -> config
 app          -> presentation
-components   -> gameplay theme
-controllers  -> components
+components   -> config + gameplay theme
+controllers  -> config + components
 ```
 
 Evitar dependencias inversas: gameplay no conoce widgets, screens ni Material navigation.
