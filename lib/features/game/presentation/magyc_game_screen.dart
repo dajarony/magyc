@@ -2,7 +2,7 @@ import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/design_system/design_system.dart';
-import '../gameplay/gameplay.dart';
+import 'magyc_game_view_model.dart';
 import 'widgets/widgets.dart';
 
 class MagycGameScreen extends StatefulWidget {
@@ -13,12 +13,18 @@ class MagycGameScreen extends StatefulWidget {
 }
 
 class _MagycGameScreenState extends State<MagycGameScreen> {
-  late final MagycGame _game;
+  late final MagycGameViewModel _viewModel;
 
   @override
   void initState() {
     super.initState();
-    _game = MagycGame();
+    _viewModel = MagycGameViewModel();
+  }
+
+  @override
+  void dispose() {
+    _viewModel.dispose();
+    super.dispose();
   }
 
   @override
@@ -26,7 +32,7 @@ class _MagycGameScreenState extends State<MagycGameScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          Positioned.fill(child: GameWidget(game: _game)),
+          Positioned.fill(child: GameWidget(game: _viewModel.game)),
           const Positioned(
             left: AppSpacing.screenInset,
             top: AppSpacing.screenInset,
@@ -37,10 +43,10 @@ class _MagycGameScreenState extends State<MagycGameScreen> {
             bottom: AppSpacing.screenInset,
             child: SafeArea(
               child: MovementPad(
-                onUp: () => _game.movement.moveUp(),
-                onDown: () => _game.movement.moveDown(),
-                onLeft: () => _game.movement.moveLeft(),
-                onRight: () => _game.movement.moveRight(),
+                onUp: _viewModel.moveUp,
+                onDown: _viewModel.moveDown,
+                onLeft: _viewModel.moveLeft,
+                onRight: _viewModel.moveRight,
               ),
             ),
           ),
@@ -48,9 +54,7 @@ class _MagycGameScreenState extends State<MagycGameScreen> {
             right: AppSpacing.screenInset,
             bottom: AppSpacing.screenInset,
             child: SafeArea(
-              child: SpellButton(
-                onPressed: () => _game.spells.castPrimarySpell(),
-              ),
+              child: SpellButton(onPressed: _viewModel.castPrimarySpell),
             ),
           ),
         ],
