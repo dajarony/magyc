@@ -2,6 +2,7 @@ import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 
 import 'components/components.dart';
+import 'config/config.dart';
 import 'controllers/controllers.dart';
 
 class MagycGame extends FlameGame {
@@ -20,7 +21,10 @@ class MagycGame extends FlameGame {
     add(IsometricGroundComponent(size: size));
 
     player = MageComponent(
-      position: Vector2(size.x * 0.5, size.y * 0.58),
+      position: Vector2(
+        size.x * GameTuning.playerSpawnXFactor,
+        size.y * GameTuning.playerSpawnYFactor,
+      ),
     );
     add(player);
 
