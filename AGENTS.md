@@ -47,6 +47,7 @@ lib/
     └── game/
         ├── gameplay/
         │   ├── magyc_game.dart
+        │   ├── config/
         │   ├── components/
         │   └── controllers/
         └── presentation/
@@ -82,16 +83,18 @@ No meter widgets Flutter dentro de componentes Flame ni logica de gameplay dentr
 - No añadir `get_it`, Provider, Riverpod, Bloc o `go_router` sin permiso explicito.
 - Toda operacion I/O futura debe usar errores tipados y `RepositoryBase.guard`.
 
-## 6. Design System
+## 6. Design System y tuning
 
 - No hardcodear colores, espaciados, radios o estilos en screens/widgets.
-- Los tokens viven en `core/design_system/`.
+- Los tokens Flutter viven en `core/design_system/`.
 - Light y dark theme deben existir aunque el prototipo use dark por defecto.
 - El renderer Flame puede tener una paleta de gameplay dedicada, pero esa paleta debe estar centralizada y no repartida por componentes.
+- Los valores numericos que ajustan comportamiento del juego viven en `gameplay/config/game_tuning.dart`.
+- La geometria interna usada solo para dibujar un componente puede quedarse privada dentro de ese componente.
 
 ## 7. Barriles
 
-Cada carpeta logica publica su API mediante un barrel (`app.dart`, `design_system.dart`, `components.dart`, `controllers.dart`, etc.). Los consumidores importan barrels, no archivos internos, salvo cuando hacerlo evita un ciclo real y documentado.
+Cada carpeta logica publica su API mediante un barrel (`app.dart`, `design_system.dart`, `components.dart`, `controllers.dart`, `config.dart`, etc.). Los consumidores importan barrels, no archivos internos, salvo cuando hacerlo evita un ciclo real y documentado.
 
 ## 8. Fases y gates
 
