@@ -24,10 +24,16 @@ Remediacion arquitectonica del prototipo inicial terminada en GitHub. El codigo 
 - `core/design_system/`: colores, spacing, radius, text styles, theme y tokens.
 - `features/game/presentation/`: screen, ViewModel y widgets separados.
 - `features/game/gameplay/magyc_game.dart`: solo composition root de Flame.
+- `features/game/gameplay/config/`: tuning numerico centralizado del vertical slice.
 - `features/game/gameplay/controllers/`: movimiento y casting separados.
 - `features/game/gameplay/components/`: suelo, mago y proyectil, uno por archivo.
 - `features/game/gameplay/theme/`: paleta Flame centralizada.
 - barrels por carpeta logica.
+
+### Ultima limpieza
+- movimiento, margenes, spawn, dimensiones isometricas y parametros del hechizo ya no estan repartidos por controllers/componentes.
+- `GameTuning` es la unica responsabilidad para esos valores.
+- la geometria puramente visual permanece privada dentro de cada componente, donde pertenece.
 
 ## Fases Dajarony
 
@@ -60,7 +66,7 @@ El ViewModel/screen/gameplay existentes se consideran prototipo heredado en reme
 
 ## Bloqueo actual
 
-El dispositivo remoto `Dajarony` estaba offline en la ultima comprobacion. No se afirma que compile ni que los tests pasen hasta ejecutar los comandos anteriores.
+El dispositivo remoto `Dajarony` sigue offline en la ultima comprobacion. El codigo queda preparado para validacion, pero no se afirma que compile ni que los tests pasen hasta ejecutar los comandos anteriores.
 
 ## Proxima feature despues de los gates
 
