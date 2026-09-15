@@ -13,6 +13,11 @@
 
 Remediacion arquitectonica del prototipo inicial terminada en GitHub. El codigo anterior mezclaba app shell, widgets y gameplay; se ha separado por responsabilidad antes de seguir anadiendo features.
 
+### Guardrails activos
+- `AGENTS.md` obliga SRP, barrels, separacion Flutter/Flame y orden Dajarony.
+- `analysis_options.yaml` activa reglas adicionales (`avoid_print`, `directives_ordering`, tipos de retorno explicitos, finales preferidos).
+- `docs/ARCHITECTURE.md` fija dependencias y responsabilidades por capa.
+
 ### Separado ahora
 - `main.dart`: solo bootstrap + `runApp`.
 - `app/`: bootstrap, app shell y rutas.
