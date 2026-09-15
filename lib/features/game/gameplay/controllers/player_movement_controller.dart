@@ -25,8 +25,8 @@ class PlayerMovementController {
     final size = _worldSize();
 
     _player.position = Vector2(
-      next.x.clamp(_worldMargin, size.x - _worldMargin),
-      next.y.clamp(_worldMargin, size.y - _worldMargin),
+      next.x.clamp(_worldMargin, size.x - _worldMargin).toDouble(),
+      next.y.clamp(_worldMargin, size.y - _worldMargin).toDouble(),
     );
   }
 }
