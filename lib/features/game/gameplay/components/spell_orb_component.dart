@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flame/components.dart';
 
+import '../config/config.dart';
 import '../theme/theme.dart';
 
 class SpellOrbComponent extends PositionComponent {
@@ -9,18 +10,16 @@ class SpellOrbComponent extends PositionComponent {
     required super.position,
     required this.velocity,
   }) : super(
-          size: Vector2.all(24),
+          size: Vector2.all(GameTuning.primarySpellExtent),
           anchor: Anchor.center,
           priority: 20,
         );
-
-  static const double _maxLifeSeconds = 1.8;
 
   final Vector2 velocity;
   final Paint _glowPaint = Paint()..color = GamePalette.spellGlow;
   final Paint _corePaint = Paint()..color = GamePalette.spellCore;
 
-  double _lifeSeconds = _maxLifeSeconds;
+  double _lifeSeconds = GameTuning.primarySpellLifeSeconds;
 
   @override
   void update(double dt) {
