@@ -9,7 +9,9 @@ class MagycGame extends FlameGame {
   late final PlayerMovementController movement;
   late final SpellCastingController spells;
 
-  bool isReady = false;
+  bool _isReady = false;
+
+  bool get isReady => _isReady;
 
   @override
   Future<void> onLoad() async {
@@ -31,6 +33,6 @@ class MagycGame extends FlameGame {
       player: player,
     );
 
-    isReady = true;
+    _isReady = true;
   }
 }
