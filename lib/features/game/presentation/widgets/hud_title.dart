@@ -14,7 +14,9 @@ class HudTitle extends StatelessWidget {
       decoration: BoxDecoration(
         color: isDark
             ? AppColors.surfaceOverlayDark
-            : AppColors.surfaceLight.withValues(alpha: AppTokens.hudOverlayOpacity),
+            : AppColors.surfaceLight.withValues(
+                alpha: AppTokens.hudOverlayOpacity,
+              ),
         borderRadius: BorderRadius.circular(AppRadius.lg),
         border: Border.all(
           color: isDark ? AppColors.borderDark : AppColors.borderLight,
