@@ -1,6 +1,7 @@
 import 'package:flame/components.dart';
 
 import '../components/components.dart';
+import '../config/config.dart';
 
 class SpellCastingController {
   SpellCastingController({
@@ -9,17 +10,21 @@ class SpellCastingController {
   })  : _world = world,
         _player = player;
 
-  static final Vector2 _spawnOffset = Vector2(18, -8);
-  static final Vector2 _defaultVelocity = Vector2(260, 0);
-
   final Component _world;
   final MageComponent _player;
 
   void castPrimarySpell() {
     _world.add(
       SpellOrbComponent(
-        position: _player.position + _spawnOffset,
-        velocity: _defaultVelocity.clone(),
+        position: _player.position +
+            Vector2(
+              GameTuning.primarySpellSpawnOffsetX,
+              GameTuning.primarySpellSpawnOffsetY,
+            ),
+        velocity: Vector2(
+          GameTuning.primarySpellVelocityX,
+          GameTuning.primarySpellVelocityY,
+        ),
       ),
     );
   }
